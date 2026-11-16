@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans antialiased bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100;
+  }
+}
+
+/* Dedicated High-Fidelity Medical Print Stylesheet */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Hide all application chrome, navigation, headers, footers, buttons */
+  header, aside, nav, button, .print\\:hidden, #root > div > header, #root > div > div > aside {
+    display: none !important;
+  }
+
+  /* Ensure modal backdrop and scroll areas become transparent and static */
+  .fixed {
+    position: static !important;
+    inset: auto !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+
+  /* Report paper styling */
+  #printable-lab-report {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 auto !important;
+    padding: 8mm 10mm !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    page-break-after: avoid;
+    break-inside: avoid;
+  }
+
+  @page {
+    size: auto;
+    margin: 6mm 8mm;
+  }
+
+  /* Prevent row splitting inside tables */
+  tr, .break-inside-avoid {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Keep colors and backgrounds intact on modern laser and thermal printers */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

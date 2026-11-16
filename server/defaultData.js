@@ -1,0 +1,1010 @@
+// Default Laboratory Information and Pre-configured Pathology Tests Library
+export const defaultLabProfile = {
+  labName: "Raza Clinical Laboratory",
+  tagline: "Accurate • Reliable • Prompt Diagnostic Services",
+  doctorName: "Dr. Ghulam Muhammad",
+  doctorDesignation: "Consultant Pathologist",
+  doctorQualification: "M.B.B.S., M.Phil. (Pathology)",
+  doctorRegistration: "PMDC Reg. # 45291-P",
+  secondDoctorName: "Dr. Ayesha Raza",
+  secondDoctorQualification: "M.B.B.S., FCPS (Haematology)",
+  secondDoctorDesignation: "Hematologist",
+  address: "Main Bazar Dera Bakha, Bahawalpur, Punjab",
+  phone: "03458776130",
+  altPhone: "03009684120",
+  email: "razaclinicallab@gmail.com",
+  registrationNumber: "REG-PHC-2024-87761",
+  website: "www.razalab.pk",
+  footerNotice: "This is a computer generated diagnostic report. Please correlate clinically with patient history. In case of unexpected results, repeat testing within 24 hours is recommended.",
+  disclaimer: "Specimens are discarded after 48 hours of testing. For queries regarding this report, please contact laboratory reception.",
+  themeColor: "#0d9488", // Teal-600
+  accentColor: "#0284c7", // Sky-600
+  reportTemplate: "modern-clinical", // 'modern-clinical', 'classic-hospital', 'compact', 'minimal'
+  headerStyle: "standard", // 'standard', 'minimal', 'letterhead-blank' (for pre-printed paper)
+  pageSize: "A4", // 'A4' | 'A5'
+  fontSize: "medium", // 'small' | 'medium' | 'large'
+  showLogo: true,
+  showSignature: true,
+  showStamp: true,
+  showQrCode: true,
+  showReferenceRanges: true,
+  showUnits: true,
+  showFlags: true,
+  showMethodology: true,
+  logoUrl: "", // Will support uploaded base64 image or generated SVG
+  signatureUrl: "", // Signature graphic
+  stampUrl: "" // Stamp graphic
+};
+
+export const defaultCategories = [
+  { id: "hematology", name: "Hematology", order: 1, icon: "Droplet" },
+  { id: "biochemistry", name: "Biochemistry", order: 2, icon: "FlaskConical" },
+  { id: "lft", name: "Liver Function Tests (LFT)", order: 3, icon: "Activity" },
+  { id: "rft", name: "Renal Function Tests (RFT)", order: 4, icon: "Filter" },
+  { id: "serology", name: "Serology & Immunology", order: 5, icon: "ShieldAlert" },
+  { id: "hormones", name: "Endocrinology & Hormones", order: 6, icon: "Dna" },
+  { id: "clinical-pathology", name: "Clinical Pathology", order: 7, icon: "Microscope" },
+  { id: "coagulation", name: "Coagulation Studies", order: 8, icon: "Clock" }
+];
+
+export const defaultTests = [
+  // --- HEMATOLOGY ---
+  {
+    id: "cbc",
+    categoryId: "hematology",
+    name: "Complete Blood Count (CBC) with ESR",
+    code: "HEM-001",
+    sampleType: "Whole Blood (EDTA)",
+    method: "Automated Hematology Analyzer (5-Part) & Manual Microscopy",
+    price: 800,
+    parameters: [
+      {
+        id: "hb",
+        name: "Hemoglobin (Hb)",
+        unit: "g/dL",
+        type: "number",
+        ranges: [
+          { gender: "male", ageMin: 12, ageMax: 120, low: 13.0, high: 17.5, text: "13.0 - 17.5" },
+          { gender: "female", ageMin: 12, ageMax: 120, low: 12.0, high: 15.5, text: "12.0 - 15.5" },
+          { gender: "both", ageMin: 0, ageMax: 12, low: 11.0, high: 14.5, text: "11.0 - 14.5" }
+        ],
+        isCalculated: false
+      },
+      {
+        id: "rbc",
+        name: "R.B.C. Count",
+        unit: "mil/cu.mm",
+        type: "number",
+        ranges: [
+          { gender: "male", ageMin: 12, ageMax: 120, low: 4.5, high: 5.9, text: "4.5 - 5.9" },
+          { gender: "female", ageMin: 12, ageMax: 120, low: 4.0, high: 5.2, text: "4.0 - 5.2" },
+          { gender: "both", ageMin: 0, ageMax: 12, low: 3.8, high: 5.0, text: "3.8 - 5.0" }
+        ],
+        isCalculated: false
+      },
+      {
+        id: "pcv",
+        name: "Hematocrit (PCV)",
+        unit: "%",
+        type: "number",
+        ranges: [
+          { gender: "male", ageMin: 12, ageMax: 120, low: 40.0, high: 52.0, text: "40.0 - 52.0" },
+          { gender: "female", ageMin: 12, ageMax: 120, low: 36.0, high: 46.0, text: "36.0 - 46.0" },
+          { gender: "both", ageMin: 0, ageMax: 12, low: 34.0, high: 44.0, text: "34.0 - 44.0" }
+        ],
+        isCalculated: true,
+        calculationFormula: "pcv" // auto calculates or verifies
+      },
+      {
+        id: "mcv",
+        name: "M.C.V.",
+        unit: "fL",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 0, ageMax: 120, low: 80.0, high: 98.0, text: "80.0 - 98.0" }
+        ],
+        isCalculated: true,
+        calculationFormula: "mcv" // (PCV * 10) / RBC
+      },
+      {
+        id: "mch",
+        name: "M.C.H.",
+        unit: "pg",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 0, ageMax: 120, low: 27.0, high: 33.0, text: "27.0 - 33.0" }
+        ],
+        isCalculated: true,
+        calculationFormula: "mch" // (Hb * 10) / RBC
+      },
+      {
+        id: "mchc",
+        name: "M.C.H.C.",
+        unit: "g/dL",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 0, ageMax: 120, low: 31.5, high: 36.0, text: "31.5 - 36.0" }
+        ],
+        isCalculated: true,
+        calculationFormula: "mchc" // (Hb * 100) / PCV
+      },
+      {
+        id: "tlc",
+        name: "Total Leukocyte Count (TLC / WBC)",
+        unit: "/cu.mm",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 12, ageMax: 120, low: 4000, high: 11000, text: "4,000 - 11,000" },
+          { gender: "both", ageMin: 0, ageMax: 12, low: 5000, high: 15000, text: "5,000 - 15,000" }
+        ]
+      },
+      {
+        id: "neutrophils",
+        name: "Neutrophils (Polymorphs)",
+        unit: "%",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 0, ageMax: 120, low: 40, high: 75, text: "40 - 75" }
+        ]
+      },
+      {
+        id: "lymphocytes",
+        name: "Lymphocytes",
+        unit: "%",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 0, ageMax: 120, low: 20, high: 45, text: "20 - 45" }
+        ]
+      },
+      {
+        id: "monocytes",
+        name: "Monocytes",
+        unit: "%",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 0, ageMax: 120, low: 2, high: 10, text: "2 - 10" }
+        ]
+      },
+      {
+        id: "eosinophils",
+        name: "Eosinophils",
+        unit: "%",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 0, ageMax: 120, low: 1, high: 6, text: "1 - 6" }
+        ]
+      },
+      {
+        id: "basophils",
+        name: "Basophils",
+        unit: "%",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 0, ageMax: 120, low: 0, high: 1, text: "0 - 1" }
+        ]
+      },
+      {
+        id: "platelets",
+        name: "Platelet Count",
+        unit: "/cu.mm",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 0, ageMax: 120, low: 150000, high: 450000, text: "150,000 - 450,000" }
+        ]
+      },
+      {
+        id: "esr",
+        name: "E.S.R. (Westergren)",
+        unit: "mm/1st hr",
+        type: "number",
+        ranges: [
+          { gender: "male", ageMin: 0, ageMax: 120, low: 0, high: 15, text: "0 - 15" },
+          { gender: "female", ageMin: 0, ageMax: 120, low: 0, high: 20, text: "0 - 20" }
+        ]
+      },
+      {
+        id: "pbs",
+        name: "Peripheral Blood Smear",
+        unit: "",
+        type: "text",
+        defaultValue: "RBCs are normocytic & normochromic. Platelets adequate on smear. No hemoparasites seen.",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Normocytic, Normochromic" }]
+      }
+    ]
+  },
+  {
+    id: "blood-group",
+    categoryId: "hematology",
+    name: "Blood Grouping & Rh Factor",
+    code: "HEM-002",
+    sampleType: "Whole Blood (EDTA)",
+    method: "Slide & Tube Agglutination",
+    price: 300,
+    parameters: [
+      {
+        id: "abo_group",
+        name: "ABO Blood Group",
+        unit: "",
+        type: "select",
+        options: ["A", "B", "AB", "O"],
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "N/A" }]
+      },
+      {
+        id: "rh_factor",
+        name: "Rh (D) Factor",
+        unit: "",
+        type: "select",
+        options: ["Positive (+ve)", "Negative (-ve)"],
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Positive / Negative" }]
+      }
+    ]
+  },
+  {
+    id: "coagulation-pt-aptt",
+    categoryId: "coagulation",
+    name: "Coagulation Profile (PT / INR & APTT)",
+    code: "COA-001",
+    sampleType: "Citrated Plasma (Blue Top)",
+    method: "Semi-Automated Coagulometer",
+    price: 900,
+    parameters: [
+      {
+        id: "pt_patient",
+        name: "Prothrombin Time (Patient)",
+        unit: "seconds",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 11.0, high: 14.5, text: "11.0 - 14.5" }]
+      },
+      {
+        id: "pt_control",
+        name: "Prothrombin Time (Control)",
+        unit: "seconds",
+        type: "number",
+        defaultValue: 12.5,
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "12.0 - 13.5" }]
+      },
+      {
+        id: "inr",
+        name: "I.N.R. (International Normalized Ratio)",
+        unit: "",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 0.8, high: 1.2, text: "0.85 - 1.15 (Therapeutic: 2.0 - 3.0)" }],
+        isCalculated: true,
+        calculationFormula: "inr"
+      },
+      {
+        id: "aptt_patient",
+        name: "A.P.T.T. (Patient)",
+        unit: "seconds",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 26.0, high: 38.0, text: "26.0 - 38.0" }]
+      },
+      {
+        id: "aptt_control",
+        name: "A.P.T.T. (Control)",
+        unit: "seconds",
+        type: "number",
+        defaultValue: 30.0,
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "28.0 - 32.0" }]
+      }
+    ]
+  },
+
+  // --- LIVER FUNCTION TESTS (LFT) ---
+  {
+    id: "lft",
+    categoryId: "lft",
+    name: "Liver Function Tests (LFT Complete)",
+    code: "LFT-001",
+    sampleType: "Serum (Plain Tube)",
+    method: "Spectrophotometric / Enzymatic Rate Method",
+    price: 1100,
+    parameters: [
+      {
+        id: "bili_total",
+        name: "Total Bilirubin",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 0.2, high: 1.2, text: "0.2 - 1.2" }]
+      },
+      {
+        id: "bili_direct",
+        name: "Direct Bilirubin (Conjugated)",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 0.0, high: 0.3, text: "0.0 - 0.3" }]
+      },
+      {
+        id: "bili_indirect",
+        name: "Indirect Bilirubin (Unconjugated)",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 0.2, high: 0.9, text: "0.2 - 0.9" }],
+        isCalculated: true,
+        calculationFormula: "indirect_bilirubin"
+      },
+      {
+        id: "alt",
+        name: "A.L.T. / S.G.P.T.",
+        unit: "U/L",
+        type: "number",
+        ranges: [
+          { gender: "male", ageMin: 0, ageMax: 120, low: 0, high: 45, text: "Up to 45" },
+          { gender: "female", ageMin: 0, ageMax: 120, low: 0, high: 35, text: "Up to 35" }
+        ]
+      },
+      {
+        id: "ast",
+        name: "A.S.T. / S.G.O.T.",
+        unit: "U/L",
+        type: "number",
+        ranges: [
+          { gender: "male", ageMin: 0, ageMax: 120, low: 0, high: 40, text: "Up to 40" },
+          { gender: "female", ageMin: 0, ageMax: 120, low: 0, high: 32, text: "Up to 32" }
+        ]
+      },
+      {
+        id: "alp",
+        name: "Alkaline Phosphatase (ALP)",
+        unit: "U/L",
+        type: "number",
+        ranges: [
+          { gender: "both", ageMin: 18, ageMax: 120, low: 44, high: 147, text: "44 - 147 (Adults)" },
+          { gender: "both", ageMin: 0, ageMax: 18, low: 100, high: 390, text: "100 - 390 (Children)" }
+        ]
+      },
+      {
+        id: "total_protein",
+        name: "Total Protein",
+        unit: "g/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 6.4, high: 8.3, text: "6.4 - 8.3" }]
+      },
+      {
+        id: "albumin",
+        name: "Serum Albumin",
+        unit: "g/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 3.5, high: 5.2, text: "3.5 - 5.2" }]
+      },
+      {
+        id: "globulin",
+        name: "Serum Globulin",
+        unit: "g/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 2.3, high: 3.5, text: "2.3 - 3.5" }],
+        isCalculated: true,
+        calculationFormula: "globulin"
+      },
+      {
+        id: "ag_ratio",
+        name: "A / G Ratio",
+        unit: "",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 1.1, high: 2.2, text: "1.1 - 2.2" }],
+        isCalculated: true,
+        calculationFormula: "ag_ratio"
+      }
+    ]
+  },
+
+  // --- RENAL FUNCTION TESTS (RFT) ---
+  {
+    id: "rft",
+    categoryId: "rft",
+    name: "Renal Function Tests (RFT / Kidney Profile)",
+    code: "RFT-001",
+    sampleType: "Serum (Plain Tube)",
+    method: "Enzymatic UV / Jaffe Kinetic Method",
+    price: 950,
+    parameters: [
+      {
+        id: "urea",
+        name: "Blood Urea",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 15.0, high: 45.0, text: "15.0 - 45.0" }]
+      },
+      {
+        id: "bun",
+        name: "Blood Urea Nitrogen (BUN)",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 7.0, high: 21.0, text: "7.0 - 21.0" }],
+        isCalculated: true,
+        calculationFormula: "bun"
+      },
+      {
+        id: "creatinine",
+        name: "Serum Creatinine",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [
+          { gender: "male", ageMin: 0, ageMax: 120, low: 0.7, high: 1.3, text: "0.7 - 1.3" },
+          { gender: "female", ageMin: 0, ageMax: 120, low: 0.6, high: 1.1, text: "0.6 - 1.1" }
+        ]
+      },
+      {
+        id: "uric_acid",
+        name: "Serum Uric Acid",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [
+          { gender: "male", ageMin: 0, ageMax: 120, low: 3.5, high: 7.2, text: "3.5 - 7.2" },
+          { gender: "female", ageMin: 0, ageMax: 120, low: 2.6, high: 6.0, text: "2.6 - 6.0" }
+        ]
+      },
+      {
+        id: "sodium",
+        name: "Serum Sodium (Na+)",
+        unit: "mEq/L",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 135, high: 148, text: "135 - 148" }]
+      },
+      {
+        id: "potassium",
+        name: "Serum Potassium (K+)",
+        unit: "mEq/L",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 3.5, high: 5.1, text: "3.5 - 5.1" }]
+      },
+      {
+        id: "chloride",
+        name: "Serum Chloride (Cl-)",
+        unit: "mEq/L",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 96, high: 108, text: "96 - 108" }]
+      },
+      {
+        id: "calcium",
+        name: "Serum Calcium (Total)",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 8.5, high: 10.5, text: "8.5 - 10.5" }]
+      },
+      {
+        id: "phosphorus",
+        name: "Serum Phosphorus",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 2.5, high: 4.5, text: "2.5 - 4.5" }]
+      }
+    ]
+  },
+
+  // --- BIOCHEMISTRY / LIPID PROFILE / GLUCOSE ---
+  {
+    id: "lipid-profile",
+    categoryId: "biochemistry",
+    name: "Lipid Profile (Complete Cholesterol Panel)",
+    code: "BIO-001",
+    sampleType: "Serum (12-14 hr Fasting Required)",
+    method: "Enzymatic Colorimetric (CHOD-PAP / GPO-PAP)",
+    price: 1200,
+    parameters: [
+      {
+        id: "chol_total",
+        name: "Total Cholesterol",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 125, high: 200, text: "< 200 (Desirable)" }]
+      },
+      {
+        id: "triglycerides",
+        name: "Triglycerides",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 50, high: 150, text: "< 150 (Normal)" }]
+      },
+      {
+        id: "hdl",
+        name: "HDL Cholesterol (Good)",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [
+          { gender: "male", ageMin: 0, ageMax: 120, low: 40, high: 70, text: "> 40 (Optimal)" },
+          { gender: "female", ageMin: 0, ageMax: 120, low: 50, high: 80, text: "> 50 (Optimal)" }
+        ]
+      },
+      {
+        id: "ldl",
+        name: "LDL Cholesterol (Bad)",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 50, high: 100, text: "< 100 (Optimal)" }],
+        isCalculated: true,
+        calculationFormula: "ldl_friedewald"
+      },
+      {
+        id: "vldl",
+        name: "VLDL Cholesterol",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 10, high: 30, text: "10 - 30" }],
+        isCalculated: true,
+        calculationFormula: "vldl"
+      },
+      {
+        id: "chol_hdl_ratio",
+        name: "Total Cholesterol / HDL Ratio",
+        unit: "Ratio",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 2.5, high: 4.5, text: "3.3 - 4.4 (Low Risk)" }],
+        isCalculated: true,
+        calculationFormula: "chol_hdl_ratio"
+      }
+    ]
+  },
+  {
+    id: "blood-glucose",
+    categoryId: "biochemistry",
+    name: "Blood Glucose (Sugar)",
+    code: "BIO-002",
+    sampleType: "Fluoride Plasma / Serum",
+    method: "Hexokinase / GOD-POD Method",
+    price: 250,
+    parameters: [
+      {
+        id: "glucose_fasting",
+        name: "Fasting Blood Sugar (FBS)",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 70, high: 100, text: "70 - 100 (Normal), 101 - 125 (Prediabetic)" }]
+      },
+      {
+        id: "glucose_random",
+        name: "Random Blood Sugar (RBS)",
+        unit: "mg/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 80, high: 140, text: "80 - 140 (Normal)" }]
+      },
+      {
+        id: "hba1c",
+        name: "Glycated Hemoglobin (HbA1c)",
+        unit: "%",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 4.0, high: 5.6, text: "< 5.7 (Normal), 5.7 - 6.4 (Prediabetes), ≥ 6.5 (Diabetes)" }]
+      }
+    ]
+  },
+
+  // --- SEROLOGY & IMMUNOLOGY ---
+  {
+    id: "serology-panel",
+    categoryId: "serology",
+    name: "Serological Viral & Infection Panel",
+    code: "SER-001",
+    sampleType: "Serum",
+    method: "Immunochromatography / Rapid ICT / ELISA",
+    price: 1500,
+    parameters: [
+      {
+        id: "hbsag",
+        name: "HBsAg (Hepatitis B Surface Antigen)",
+        unit: "",
+        type: "select",
+        options: ["Negative / Non-Reactive", "Positive / Reactive"],
+        defaultValue: "Negative / Non-Reactive",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative / Non-Reactive" }]
+      },
+      {
+        id: "anti_hcv",
+        name: "Anti-HCV (Hepatitis C Antibody)",
+        unit: "",
+        type: "select",
+        options: ["Negative / Non-Reactive", "Positive / Reactive"],
+        defaultValue: "Negative / Non-Reactive",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative / Non-Reactive" }]
+      },
+      {
+        id: "hiv",
+        name: "HIV I & II Antibodies",
+        unit: "",
+        type: "select",
+        options: ["Negative / Non-Reactive", "Positive / Reactive"],
+        defaultValue: "Negative / Non-Reactive",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative / Non-Reactive" }]
+      },
+      {
+        id: "crp",
+        name: "C - Reactive Protein (CRP)",
+        unit: "mg/L",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 0, high: 6.0, text: "< 6.0 (Negative)" }]
+      },
+      {
+        id: "ra_factor",
+        name: "Rheumatoid Factor (RA Factor)",
+        unit: "IU/mL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 0, high: 20.0, text: "< 20.0 (Negative)" }]
+      },
+      {
+        id: "aso_titre",
+        name: "ASO Titre (Anti-Streptolysin O)",
+        unit: "IU/mL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 0, high: 200, text: "< 200 (Normal)" }]
+      },
+      {
+        id: "widal_to",
+        name: "Widal Test (S. Typhi 'O' Antigen)",
+        unit: "Titre",
+        type: "select",
+        options: ["Negative (< 1:80)", "1:80", "1:160 (Significant)", "1:320", "1:640"],
+        defaultValue: "Negative (< 1:80)",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "< 1:80 Titre" }]
+      },
+      {
+        id: "widal_th",
+        name: "Widal Test (S. Typhi 'H' Antigen)",
+        unit: "Titre",
+        type: "select",
+        options: ["Negative (< 1:80)", "1:80", "1:160 (Significant)", "1:320", "1:640"],
+        defaultValue: "Negative (< 1:80)",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "< 1:80 Titre" }]
+      },
+      {
+        id: "dengue_ns1",
+        name: "Dengue NS1 Antigen",
+        unit: "",
+        type: "select",
+        options: ["Negative", "Positive"],
+        defaultValue: "Negative",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative" }]
+      },
+      {
+        id: "dengue_igm",
+        name: "Dengue IgM Antibody",
+        unit: "",
+        type: "select",
+        options: ["Negative", "Positive"],
+        defaultValue: "Negative",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative" }]
+      },
+      {
+        id: "dengue_igg",
+        name: "Dengue IgG Antibody",
+        unit: "",
+        type: "select",
+        options: ["Negative", "Positive"],
+        defaultValue: "Negative",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative" }]
+      }
+    ]
+  },
+
+  // --- HORMONES & ENDOCRINOLOGY ---
+  {
+    id: "thyroid-profile",
+    categoryId: "hormones",
+    name: "Thyroid Profile (Free T3, Free T4, TSH)",
+    code: "HOR-001",
+    sampleType: "Serum",
+    method: "Chemiluminescent Microparticle Immunoassay (CMIA)",
+    price: 1800,
+    parameters: [
+      {
+        id: "tsh",
+        name: "T.S.H. (Thyroid Stimulating Hormone)",
+        unit: "uIU/mL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 0.35, high: 4.94, text: "0.35 - 4.94" }]
+      },
+      {
+        id: "ft3",
+        name: "Free Triiodothyronine (FT3)",
+        unit: "pg/mL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 1.71, high: 3.71, text: "1.71 - 3.71" }]
+      },
+      {
+        id: "ft4",
+        name: "Free Thyroxine (FT4)",
+        unit: "ng/dL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 0.70, high: 1.48, text: "0.70 - 1.48" }]
+      },
+      {
+        id: "vit_d",
+        name: "Vitamin D (25-OH Total)",
+        unit: "ng/mL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 30, high: 100, text: "Deficient: < 20 | Insufficient: 20-29 | Sufficient: 30-100" }]
+      },
+      {
+        id: "vit_b12",
+        name: "Vitamin B12 (Cyanocobalamin)",
+        unit: "pg/mL",
+        type: "number",
+        ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 211, high: 911, text: "211 - 911" }]
+      },
+      {
+        id: "beta_hcg",
+        name: "Beta H.C.G. (Total)",
+        unit: "mIU/mL",
+        type: "number",
+        ranges: [{ gender: "female", ageMin: 0, ageMax: 120, low: 0, high: 5.0, text: "Non-pregnant: < 5.0 | Normal Pregnancy: Varies by week" }]
+      }
+    ]
+  },
+
+  // --- CLINICAL PATHOLOGY (URINE & STOOL) ---
+  {
+    id: "urine-re",
+    categoryId: "clinical-pathology",
+    name: "Urine Routine Examination (Urine R/E)",
+    code: "CP-001",
+    sampleType: "Fresh Midstream Urine (Sterile Container)",
+    method: "Automated Strip Chemistry & Centrifuged Microscopy",
+    price: 350,
+    parameters: [
+      // Physical
+      { id: "u_color", section: "Physical Examination", name: "Color", unit: "", type: "select", options: ["Pale Yellow", "Yellow", "Amber", "Dark Yellow", "Reddish", "Smoky"], defaultValue: "Pale Yellow", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Pale Yellow" }] },
+      { id: "u_appearance", section: "Physical Examination", name: "Appearance / Clarity", unit: "", type: "select", options: ["Clear", "Slightly Turbid", "Turbid", "Hazy"], defaultValue: "Clear", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Clear" }] },
+      { id: "u_sp_gravity", section: "Physical Examination", name: "Specific Gravity", unit: "", type: "number", defaultValue: 1.020, ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 1.005, high: 1.030, text: "1.005 - 1.030" }] },
+      { id: "u_ph", section: "Physical Examination", name: "pH (Reaction)", unit: "", type: "number", defaultValue: 6.0, ranges: [{ gender: "both", ageMin: 0, ageMax: 120, low: 4.5, high: 8.0, text: "5.0 - 7.5 (Acidic)" }] },
+      // Chemical
+      { id: "u_protein", section: "Chemical Examination", name: "Protein (Albumin)", unit: "", type: "select", options: ["Nil", "Trace", "+ (30 mg/dL)", "++ (100 mg/dL)", "+++ (300 mg/dL)", "++++ (>1000 mg/dL)"], defaultValue: "Nil", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Nil" }] },
+      { id: "u_glucose", section: "Chemical Examination", name: "Glucose (Sugar)", unit: "", type: "select", options: ["Nil", "Trace", "+ (100 mg/dL)", "++ (250 mg/dL)", "+++ (500 mg/dL)", "++++ (1000 mg/dL)"], defaultValue: "Nil", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Nil" }] },
+      { id: "u_ketones", section: "Chemical Examination", name: "Ketone Bodies", unit: "", type: "select", options: ["Negative", "Trace", "Positive (+)", "Strongly Positive (++)"], defaultValue: "Negative", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative" }] },
+      { id: "u_bilirubin", section: "Chemical Examination", name: "Bilirubin", unit: "", type: "select", options: ["Negative", "Positive (+)"], defaultValue: "Negative", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative" }] },
+      { id: "u_urobilinogen", section: "Chemical Examination", name: "Urobilinogen", unit: "", type: "select", options: ["Normal", "Increased", "Absent"], defaultValue: "Normal", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Normal" }] },
+      { id: "u_nitrite", section: "Chemical Examination", name: "Nitrite", unit: "", type: "select", options: ["Negative", "Positive (+)"], defaultValue: "Negative", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative" }] },
+      { id: "u_blood", section: "Chemical Examination", name: "Blood / Hemoglobin", unit: "", type: "select", options: ["Negative", "Trace", "+", "++", "+++"], defaultValue: "Negative", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative" }] },
+      // Microscopic
+      { id: "u_pus_cells", section: "Microscopic Examination", name: "Pus Cells (Leukocytes)", unit: "/HPF", type: "text", defaultValue: "1 - 3", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "0 - 5 /HPF" }] },
+      { id: "u_rbcs", section: "Microscopic Examination", name: "Red Blood Cells (RBCs)", unit: "/HPF", type: "text", defaultValue: "0 - 1", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "0 - 2 /HPF" }] },
+      { id: "u_epithelial", section: "Microscopic Examination", name: "Epithelial Cells", unit: "/HPF", type: "text", defaultValue: "Few", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Few /HPF" }] },
+      { id: "u_casts", section: "Microscopic Examination", name: "Casts", unit: "/LPF", type: "text", defaultValue: "Nil seen", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Nil seen" }] },
+      { id: "u_crystals", section: "Microscopic Examination", name: "Crystals", unit: "", type: "text", defaultValue: "Nil seen", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Nil seen" }] },
+      { id: "u_bacteria", section: "Microscopic Examination", name: "Bacteria", unit: "", type: "select", options: ["Nil seen", "Few", "Moderate", "Plenty"], defaultValue: "Nil seen", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Nil seen" }] }
+    ]
+  },
+  {
+    id: "stool-re",
+    categoryId: "clinical-pathology",
+    name: "Stool Complete Examination (Stool R/E)",
+    code: "CP-002",
+    sampleType: "Fresh Stool Specimen",
+    method: "Direct Wet Mount (Saline & Iodine)",
+    price: 400,
+    parameters: [
+      { id: "s_color", section: "Physical Examination", name: "Color", unit: "", type: "select", options: ["Brown", "Yellowish Brown", "Dark Brown", "Clay Colored", "Black Tar"], defaultValue: "Brown", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Brown" }] },
+      { id: "s_consistency", section: "Physical Examination", name: "Consistency", unit: "", type: "select", options: ["Formed", "Semi-formed", "Soft", "Loose", "Watery"], defaultValue: "Formed", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Formed" }] },
+      { id: "s_mucus", section: "Physical Examination", name: "Mucus", unit: "", type: "select", options: ["Nil", "Present (+)"], defaultValue: "Nil", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Nil" }] },
+      { id: "s_blood", section: "Physical Examination", name: "Visible Blood", unit: "", type: "select", options: ["Nil", "Present (+)"], defaultValue: "Nil", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Nil" }] },
+      { id: "s_fob", section: "Chemical Examination", name: "Occult Blood (FOB)", unit: "", type: "select", options: ["Negative", "Positive"], defaultValue: "Negative", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Negative" }] },
+      { id: "s_pus_cells", section: "Microscopic Examination", name: "Pus Cells", unit: "/HPF", type: "text", defaultValue: "0 - 2", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "0 - 2 /HPF" }] },
+      { id: "s_rbcs", section: "Microscopic Examination", name: "RBCs", unit: "/HPF", type: "text", defaultValue: "Nil", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Nil" }] },
+      { id: "s_cysts", section: "Microscopic Examination", name: "Protozoal Cysts (E. histolytica / Giardia)", unit: "", type: "text", defaultValue: "Nil seen", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Nil seen" }] },
+      { id: "s_ova", section: "Microscopic Examination", name: "Helminthic Ova", unit: "", type: "text", defaultValue: "Nil seen", ranges: [{ gender: "both", ageMin: 0, ageMax: 120, text: "Nil seen" }] }
+    ]
+  },
+  {
+    id: "semen-analysis",
+    categoryId: "clinical-pathology",
+    name: "Semen Analysis (Seminogram)",
+    code: "CP-003",
+    sampleType: "Seminal Fluid (3-5 days abstinence)",
+    method: "Makler Chamber / WHO Guidelines",
+    price: 1000,
+    parameters: [
+      { id: "sm_volume", name: "Volume", unit: "mL", type: "number", ranges: [{ gender: "male", ageMin: 0, ageMax: 120, low: 1.5, high: 5.0, text: "1.5 - 5.0 mL" }] },
+      { id: "sm_liquefaction", name: "Liquefaction Time", unit: "minutes", type: "number", defaultValue: 25, ranges: [{ gender: "male", ageMin: 0, ageMax: 120, low: 15, high: 30, text: "Within 30 mins" }] },
+      { id: "sm_ph", name: "pH", unit: "", type: "number", defaultValue: 7.8, ranges: [{ gender: "male", ageMin: 0, ageMax: 120, low: 7.2, high: 8.0, text: "7.2 - 8.0" }] },
+      { id: "sm_count", name: "Total Sperm Concentration", unit: "million/mL", type: "number", ranges: [{ gender: "male", ageMin: 0, ageMax: 120, low: 15.0, high: 200.0, text: "≥ 15.0 mil/mL" }] },
+      { id: "sm_rapid_motile", name: "Progressively Motile (Grade A+B)", unit: "%", type: "number", ranges: [{ gender: "male", ageMin: 0, ageMax: 120, low: 32, high: 100, text: "≥ 32%" }] },
+      { id: "sm_non_progressive", name: "Non-Progressive Motility", unit: "%", type: "number", ranges: [{ gender: "male", ageMin: 0, ageMax: 120, text: "N/A" }] },
+      { id: "sm_immotile", name: "Immotile", unit: "%", type: "number", ranges: [{ gender: "male", ageMin: 0, ageMax: 120, text: "< 40%" }] },
+      { id: "sm_morphology", name: "Normal Forms (WHO 5th Ed.)", unit: "%", type: "number", ranges: [{ gender: "male", ageMin: 0, ageMax: 120, low: 4, high: 100, text: "≥ 4%" }] },
+      { id: "sm_pus_cells", name: "Pus Cells", unit: "/HPF", type: "text", defaultValue: "2 - 4", ranges: [{ gender: "male", ageMin: 0, ageMax: 120, text: "< 5 /HPF" }] }
+    ]
+  }
+];
+
+export const defaultPatients = [
+  {
+    id: "PAT-2024-00101",
+    name: "Muhammad Usman",
+    guardianName: "Abdul Ghaffar",
+    gender: "male",
+    dob: "1988-06-15",
+    ageYears: 36,
+    ageMonths: 0,
+    ageDays: 0,
+    phone: "03007812984",
+    address: "Model Town A, Bahawalpur",
+    referringDoctor: "Dr. Farooq Tariq (Consultant Physician)",
+    createdAt: "2024-11-10T09:30:00Z"
+  },
+  {
+    id: "PAT-2024-00102",
+    name: "Fatima Bibi",
+    guardianName: "W/O Muhammad Zubair",
+    gender: "female",
+    dob: "1994-03-22",
+    ageYears: 30,
+    ageMonths: 8,
+    ageDays: 12,
+    phone: "03216549870",
+    address: "Near Jamia Masjid, Dera Bakha",
+    referringDoctor: "Dr. Nasreen Akhtar (Gynecologist)",
+    createdAt: "2024-11-11T10:15:00Z"
+  },
+  {
+    id: "PAT-2024-00103",
+    name: "Ahmad Ali",
+    guardianName: "Tariq Mahmood",
+    gender: "male",
+    dob: "2016-11-05",
+    ageYears: 8,
+    ageMonths: 0,
+    ageDays: 5,
+    phone: "03457123984",
+    address: "Chak 12-BC, Bahawalpur",
+    referringDoctor: "Dr. Asim Jameel (Pediatrician)",
+    createdAt: "2024-11-12T11:45:00Z"
+  }
+];
+
+export const defaultReports = [
+  {
+    id: "REP-2024-00101",
+    reportNumber: "RCL-24-101",
+    version: 1,
+    status: "finalized", // 'draft' | 'verified' | 'finalized'
+    patientId: "PAT-2024-00101",
+    patientName: "Muhammad Usman",
+    guardianName: "Abdul Ghaffar",
+    gender: "male",
+    ageYears: 36,
+    ageMonths: 0,
+    ageDays: 0,
+    phone: "03007812984",
+    address: "Model Town A, Bahawalpur",
+    referringDoctor: "Dr. Farooq Tariq (Consultant Physician)",
+    sampleDate: "2024-11-10 09:45 AM",
+    reportDate: "2024-11-10 02:30 PM",
+    sampleId: "SMP-8901",
+    testIds: ["cbc", "lft"],
+    testResults: {
+      cbc: {
+        hb: { value: 14.8, flag: "normal" },
+        rbc: { value: 4.95, flag: "normal" },
+        pcv: { value: 44.5, flag: "normal" },
+        mcv: { value: 89.9, flag: "normal" },
+        mch: { value: 29.9, flag: "normal" },
+        mchc: { value: 33.3, flag: "normal" },
+        tlc: { value: 7400, flag: "normal" },
+        neutrophils: { value: 62, flag: "normal" },
+        lymphocytes: { value: 30, flag: "normal" },
+        monocytes: { value: 5, flag: "normal" },
+        eosinophils: { value: 3, flag: "normal" },
+        basophils: { value: 0, flag: "normal" },
+        platelets: { value: 240000, flag: "normal" },
+        esr: { value: 8, flag: "normal" },
+        pbs: { value: "RBCs are normocytic & normochromic. Platelets adequate on smear. No hemoparasites seen.", flag: "normal" }
+      },
+      lft: {
+        bili_total: { value: 0.9, flag: "normal" },
+        bili_direct: { value: 0.2, flag: "normal" },
+        bili_indirect: { value: 0.7, flag: "normal" },
+        alt: { value: 38, flag: "normal" },
+        ast: { value: 31, flag: "normal" },
+        alp: { value: 112, flag: "normal" },
+        total_protein: { value: 7.4, flag: "normal" },
+        albumin: { value: 4.4, flag: "normal" },
+        globulin: { value: 3.0, flag: "normal" },
+        ag_ratio: { value: 1.47, flag: "normal" }
+      }
+    },
+    clinicalNotes: "Patient evaluated for routine health check. Complete Blood Count and Liver Function Tests are within physiological limits.",
+    verifiedBy: "Dr. Ghulam Muhammad, M.Phil. (Pathology)",
+    verifiedAt: "2024-11-10T14:30:00Z",
+    revisions: [
+      {
+        version: 1,
+        timestamp: "2024-11-10T14:30:00Z",
+        author: "Dr. Ghulam Muhammad",
+        notes: "Initial finalized report."
+      }
+    ]
+  },
+  {
+    id: "REP-2024-00102",
+    reportNumber: "RCL-24-102",
+    version: 1,
+    status: "finalized",
+    patientId: "PAT-2024-00102",
+    patientName: "Fatima Bibi",
+    guardianName: "W/O Muhammad Zubair",
+    gender: "female",
+    ageYears: 30,
+    ageMonths: 8,
+    ageDays: 12,
+    phone: "03216549870",
+    address: "Near Jamia Masjid, Dera Bakha",
+    referringDoctor: "Dr. Nasreen Akhtar (Gynecologist)",
+    sampleDate: "2024-11-11 10:30 AM",
+    reportDate: "2024-11-11 04:00 PM",
+    sampleId: "SMP-8902",
+    testIds: ["cbc", "urine-re"],
+    testResults: {
+      cbc: {
+        hb: { value: 9.8, flag: "low" },
+        rbc: { value: 3.65, flag: "low" },
+        pcv: { value: 31.0, flag: "low" },
+        mcv: { value: 76.5, flag: "low" },
+        mch: { value: 24.2, flag: "low" },
+        mchc: { value: 31.6, flag: "normal" },
+        tlc: { value: 8900, flag: "normal" },
+        neutrophils: { value: 68, flag: "normal" },
+        lymphocytes: { value: 26, flag: "normal" },
+        monocytes: { value: 4, flag: "normal" },
+        eosinophils: { value: 2, flag: "normal" },
+        basophils: { value: 0, flag: "normal" },
+        platelets: { value: 310000, flag: "normal" },
+        esr: { value: 28, flag: "high" },
+        pbs: { value: "Microcytic hypochromic red blood cell picture. Moderate anisopoikilocytosis noted.", flag: "abnormal" }
+      },
+      "urine-re": {
+        u_color: { value: "Pale Yellow", flag: "normal" },
+        u_appearance: { value: "Clear", flag: "normal" },
+        u_sp_gravity: { value: 1.018, flag: "normal" },
+        u_ph: { value: 6.0, flag: "normal" },
+        u_protein: { value: "Nil", flag: "normal" },
+        u_glucose: { value: "Nil", flag: "normal" },
+        u_ketones: { value: "Negative", flag: "normal" },
+        u_bilirubin: { value: "Negative", flag: "normal" },
+        u_urobilinogen: { value: "Normal", flag: "normal" },
+        u_nitrite: { value: "Negative", flag: "normal" },
+        u_blood: { value: "Negative", flag: "normal" },
+        u_pus_cells: { value: "2 - 3", flag: "normal" },
+        u_rbcs: { value: "Nil", flag: "normal" },
+        u_epithelial: { value: "Moderate", flag: "normal" },
+        u_casts: { value: "Nil seen", flag: "normal" },
+        u_crystals: { value: "Nil seen", flag: "normal" },
+        u_bacteria: { value: "Nil seen", flag: "normal" }
+      }
+    },
+    clinicalNotes: "Blood picture suggests Microcytic Hypochromic Anemia (likely Iron Deficiency). Serum Ferritin and Iron studies are recommended for further evaluation.",
+    verifiedBy: "Dr. Ghulam Muhammad, M.Phil. (Pathology)",
+    verifiedAt: "2024-11-11T16:00:00Z",
+    revisions: [
+      {
+        version: 1,
+        timestamp: "2024-11-11T16:00:00Z",
+        author: "Dr. Ghulam Muhammad",
+        notes: "Initial finalized report."
+      }
+    ]
+  }
+];
+
+export const defaultAuditLogs = [
+  {
+    id: "LOG-001",
+    timestamp: "2024-11-10T09:45:00Z",
+    action: "PATIENT_CREATED",
+    entity: "PAT-2024-00101",
+    user: "Staff Reception",
+    details: "Registered patient Muhammad Usman, 36Y M"
+  },
+  {
+    id: "LOG-002",
+    timestamp: "2024-11-10T14:30:00Z",
+    action: "REPORT_FINALIZED",
+    entity: "REP-2024-00101",
+    user: "Dr. Ghulam Muhammad",
+    details: "Finalized CBC and LFT reports with verified doctor signature"
+  },
+  {
+    id: "LOG-003",
+    timestamp: "2024-11-11T16:00:00Z",
+    action: "REPORT_FINALIZED",
+    entity: "REP-2024-00102",
+    user: "Dr. Ghulam Muhammad",
+    details: "Finalized report for Fatima Bibi (CBC + Urine R/E)"
+  }
+];

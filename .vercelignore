@@ -1,0 +1,5 @@
+legacy-template/
+server/data/backups/
+.git
+.github
+*.md
