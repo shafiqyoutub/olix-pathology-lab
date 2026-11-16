@@ -7,48 +7,67 @@ export async function exportReportToPdf(elementId: string, filename: string, pag
     throw new Error(`Report element #${elementId} not found`);
   }
 
-  // Temporarily force exact preview size and white background for crisp rendering
+  // Temporarily force overflow visible and white background for crisp rendering
   const prevOverflow = element.style.overflow;
   element.style.overflow = 'visible';
 
+  // Ensure all web fonts and styles are fully loaded and rasterized before capturing
+  if ((document as any).fonts?.ready) {
+    await (document as any).fonts.ready;
+  }
+
   try {
     const canvas = await html2canvas(element, {
-      scale: 2, // High resolution for crisp text
+      scale: 2.5, // High resolution (300+ DPI equivalent) for sharp text and fine borders
       useCORS: true,
       logging: false,
-      backgroundColor: '#ffffff'
+      backgroundColor: '#ffffff',
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight
     });
 
-    const imgData = canvas.toDataURL('image/png');
-    
-    // Page dimensions in mm
     const isA5 = pageSize === 'A5';
+    const pageWidth = isA5 ? 148 : 210;
+    const pageHeight = isA5 ? 210 : 297;
+
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
-      format: isA5 ? 'a5' : 'a4'
+      format: isA5 ? 'a5' : 'a4',
+      compress: true
     });
-
-    const pageWidth = isA5 ? 148 : 210;
-    const pageHeight = isA5 ? 210 : 297;
 
     // Calculate aspect ratio
     const imgWidth = pageWidth;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-    let heightLeft = imgHeight;
-    let position = 0;
+    // Smart 1-Page Medical Report Fitting:
+    // If the content is within 18% of a single page (e.g. standard report with header, tests, notes, footer),
+    // scale it proportionally to fit 100% on a single page so the stamp, signature, and QR code are NEVER severed!
+    if (imgHeight <= pageHeight * 1.18) {
+      const scaleFactor = Math.min(1, pageHeight / imgHeight);
+      const finalWidth = imgWidth * scaleFactor;
+      const finalHeight = imgHeight * scaleFactor;
+      const xOffset = (pageWidth - finalWidth) / 2;
+      const yOffset = 0;
 
-    // Add first page
-    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
-    heightLeft -= pageHeight;
+      const imgData = canvas.toDataURL('image/png', 1.0);
+      pdf.addImage(imgData, 'PNG', xOffset, yOffset, finalWidth, finalHeight, undefined, 'FAST');
+    } else {
+      // For extensive multi-page reports (e.g. 20+ tests spanning multiple full pages)
+      let heightLeft = imgHeight;
+      let position = 0;
+      const imgData = canvas.toDataURL('image/png', 1.0);
 
-    // Multi-page handling if report exceeds 1 page
-    while (heightLeft > 5) {
-      position = heightLeft - imgHeight;
-      pdf.addPage(isA5 ? 'a5' : 'a4', 'portrait');
       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
       heightLeft -= pageHeight;
+
+      while (heightLeft > 5) {
+        position = heightLeft - imgHeight;
+        pdf.addPage(isA5 ? 'a5' : 'a4', 'portrait');
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
+        heightLeft -= pageHeight;
+      }
     }
 
     pdf.save(filename.endsWith('.pdf') ? filename : `${filename}.pdf`);

@@ -36,19 +36,28 @@ export const defaultLabStampSvg = `data:image/svg+xml;utf8,<svg xmlns="http://ww
   </g>
 </svg>`;
 
-export const defaultLabLogoSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+export const defaultLabLogoSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
   <defs>
-    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="%230d9488" />
-      <stop offset="100%" stop-color="%230284c7" />
+    <linearGradient id="emblemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="%230f766e" />
+      <stop offset="50%" stop-color="%230e7490" />
+      <stop offset="100%" stop-color="%231e3a8a" />
     </linearGradient>
   </defs>
-  <rect x="5" y="5" width="90" height="90" rx="22" fill="url(%23grad1)" />
-  <circle cx="50" cy="50" r="32" fill="%23ffffff" opacity="0.15" />
-  <!-- Flask / Microscope / Cross composite -->
-  <path d="M 38,28 L 62,28 M 46,28 L 46,42 L 32,68 C 30,72 34,76 39,76 L 61,76 C 66,76 70,72 68,68 L 54,42 L 54,28" 
-        fill="none" stroke="%23ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
-  <circle cx="48" cy="62" r="3" fill="%23ffffff" />
-  <circle cx="56" cy="66" r="2" fill="%23ffffff" />
-  <circle cx="44" cy="55" r="2.2" fill="%23ffffff" />
+  <!-- Outer subtle precision ring -->
+  <circle cx="60" cy="60" r="56" fill="none" stroke="%230d9488" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.6" />
+  <circle cx="60" cy="60" r="51" fill="none" stroke="url(%23emblemGrad)" stroke-width="2.5" />
+  
+  <!-- Inner Shield / Hexagon Shape -->
+  <polygon points="60,18 95,38 95,82 60,102 25,82 25,38" fill="%23f0fdfa" stroke="%230d9488" stroke-width="2" />
+  
+  <!-- Clinical Medical Cross -->
+  <path d="M 52,38 L 68,38 L 68,52 L 82,52 L 82,68 L 68,68 L 68,82 L 52,82 L 52,68 L 38,68 L 38,52 L 52,52 Z" fill="url(%23emblemGrad)" />
+  
+  <!-- Center Microscopic Focus Point -->
+  <circle cx="60" cy="60" r="5" fill="%23ffffff" />
+  <circle cx="60" cy="60" r="2.5" fill="%230f766e" />
+  
+  <!-- Diagnostic Caduceus / Optics Accent Lines -->
+  <path d="M 44,44 L 32,32 M 76,44 L 88,32 M 44,76 L 32,88 M 76,76 L 88,88" stroke="%230d9488" stroke-width="1.8" stroke-linecap="round" opacity="0.7" />
 </svg>`;
