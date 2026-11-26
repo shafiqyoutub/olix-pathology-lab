@@ -42,9 +42,10 @@ export async function exportReportToPdf(elementId: string, filename: string, pag
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
     // Smart 1-Page Medical Report Fitting:
-    // If the content is within 18% of a single page (e.g. standard report with header, tests, notes, footer),
-    // scale it proportionally to fit 100% on a single page so the stamp, signature, and QR code are NEVER severed!
-    if (imgHeight <= pageHeight * 1.18) {
+    // Standard clinical reports (CBC, LFT, RFT, Urine, Lipid, etc.) should fit 100% on a single page
+    // so signatures, stamps, and QR verification codes are NEVER severed across page breaks!
+    // We allow up to 35% proportional scaling (scaleFactor >= 0.74) to keep the report intact on 1 page.
+    if (imgHeight <= pageHeight * 1.35) {
       const scaleFactor = Math.min(1, pageHeight / imgHeight);
       const finalWidth = imgWidth * scaleFactor;
       const finalHeight = imgHeight * scaleFactor;

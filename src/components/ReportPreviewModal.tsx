@@ -86,14 +86,14 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
       <div className="relative w-full max-w-5xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[96vh] print:max-h-none print:shadow-none print:w-full print:rounded-none">
         
         {/* Controls Toolbar (Hidden in Print) */}
-        <div className="p-4 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3 print:hidden">
+        <div className="px-4 py-2.5 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-2.5 print:hidden">
           
           <div className="flex items-center gap-2">
             <span className="font-bold text-slate-800 dark:text-white flex items-center gap-2 text-sm">
               <Sparkles className="w-4 h-4 text-emerald-600" />
               Final Report: <span className="font-mono text-emerald-700 dark:text-emerald-400">{report.reportNumber}</span>
             </span>
-            <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider ${
+            <span className={`px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider ${
               report.status === 'finalized'
                 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
                 : report.status === 'verified'
@@ -105,20 +105,20 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
           </div>
 
           {/* Configuration toggles */}
-          <div className="flex items-center flex-wrap gap-2 text-xs">
+          <div className="flex items-center flex-wrap gap-1.5 text-xs">
             
             {/* Filter Toggle: Only Submitted Results */}
             <button
               onClick={() => setOnlySubmittedResults(!onlySubmittedResults)}
               title="Toggle to show only parameters with entered results or show all"
-              className={`px-3 py-1.5 rounded-lg border font-semibold flex items-center gap-1.5 transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg border font-semibold flex items-center gap-1.5 transition-colors ${
                 onlySubmittedResults
                   ? 'bg-emerald-700 text-white border-emerald-800 shadow-xs'
                   : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-600'
               }`}
             >
               <Filter className="w-3.5 h-3.5" />
-              <span>{onlySubmittedResults ? 'Submitted Results Only (Active)' : 'Show All Selected'}</span>
+              <span>{onlySubmittedResults ? 'Submitted Only' : 'Show All'}</span>
             </button>
 
             {/* Mobile Fit vs 100% Zoom Toggle */}
@@ -126,14 +126,14 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
               <button
                 type="button"
                 onClick={() => setMobileFit(true)}
-                className={`px-2.5 py-1.5 font-semibold text-xs transition-colors ${mobileFit ? 'bg-emerald-600 text-white' : 'text-slate-700 dark:text-slate-300'}`}
+                className={`px-2 py-1 font-semibold text-xs transition-colors ${mobileFit ? 'bg-emerald-600 text-white' : 'text-slate-700 dark:text-slate-300'}`}
               >
                 Fit
               </button>
               <button
                 type="button"
                 onClick={() => setMobileFit(false)}
-                className={`px-2.5 py-1.5 font-semibold text-xs transition-colors ${!mobileFit ? 'bg-emerald-600 text-white' : 'text-slate-700 dark:text-slate-300'}`}
+                className={`px-2 py-1 font-semibold text-xs transition-colors ${!mobileFit ? 'bg-emerald-600 text-white' : 'text-slate-700 dark:text-slate-300'}`}
               >
                 100%
               </button>
@@ -143,13 +143,13 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
             <div className="flex rounded-lg border border-slate-300 dark:border-slate-600 overflow-hidden bg-white dark:bg-slate-700">
               <button
                 onClick={() => setPageSize('A4')}
-                className={`px-2.5 py-1.5 font-semibold transition-colors ${pageSize === 'A4' ? 'bg-emerald-600 text-white' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100'}`}
+                className={`px-2 py-1 font-semibold transition-colors ${pageSize === 'A4' ? 'bg-emerald-600 text-white' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100'}`}
               >
                 A4
               </button>
               <button
                 onClick={() => setPageSize('A5')}
-                className={`px-2.5 py-1.5 font-semibold transition-colors ${pageSize === 'A5' ? 'bg-emerald-600 text-white' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100'}`}
+                className={`px-2 py-1 font-semibold transition-colors ${pageSize === 'A5' ? 'bg-emerald-600 text-white' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100'}`}
               >
                 A5
               </button>
@@ -158,64 +158,64 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
             {/* Black & White mode toggle */}
             <button
               onClick={() => setIsBlackAndWhite(!isBlackAndWhite)}
-              className={`px-3 py-1.5 rounded-lg border font-medium flex items-center gap-1.5 transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg border font-medium flex items-center gap-1 transition-colors ${
                 isBlackAndWhite
                   ? 'bg-slate-800 text-white border-slate-900'
                   : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-600'
               }`}
             >
               <Palette className="w-3.5 h-3.5" />
-              <span>{isBlackAndWhite ? 'B&W Mode' : 'Color Mode'}</span>
+              <span>{isBlackAndWhite ? 'B&W' : 'Color'}</span>
             </button>
 
             {/* Pre-printed Letterhead toggle */}
             <button
               onClick={() => setIsLetterheadBlank(!isLetterheadBlank)}
               title="Hide logo and clinic address if printing on pre-printed laboratory letterhead stationery"
-              className={`px-3 py-1.5 rounded-lg border font-medium flex items-center gap-1.5 transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg border font-medium flex items-center gap-1 transition-colors ${
                 isLetterheadBlank
                   ? 'bg-amber-600 text-white border-amber-700'
                   : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-600'
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>{isLetterheadBlank ? 'Letterhead (Blank)' : 'Full Letterhead'}</span>
+              <span>{isLetterheadBlank ? 'Letterhead (Blank)' : 'Letterhead'}</span>
             </button>
 
             {/* Edit & Reissue Button */}
             {onEditReissue && (
               <button
                 onClick={() => onEditReissue(report)}
-                className="px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold flex items-center gap-1.5 border border-blue-200"
+                className="px-2.5 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold flex items-center gap-1 border border-blue-200"
               >
                 <FileEdit className="w-3.5 h-3.5" />
-                <span>Edit / Reissue</span>
+                <span>Edit</span>
               </button>
             )}
 
             {/* Print Button */}
             <button
               onClick={handlePrint}
-              className="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-black text-white font-bold flex items-center gap-1.5 shadow-xs"
+              className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-black text-white font-bold flex items-center gap-1 shadow-xs"
             >
               <Printer className="w-3.5 h-3.5" />
-              <span>Print Report</span>
+              <span>Print</span>
             </button>
 
             {/* Download PDF Button */}
             <button
               onClick={handleDownloadPdf}
               disabled={isDownloading}
-              className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold flex items-center gap-1.5 shadow-xs"
+              className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold flex items-center gap-1 shadow-xs"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>{isDownloading ? 'Generating...' : 'Download PDF'}</span>
+              <span>{isDownloading ? 'Exporting...' : 'PDF'}</span>
             </button>
 
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ml-1"
             >
               <X className="w-5 h-5" />
             </button>
@@ -230,7 +230,7 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
             <div
               id="printable-lab-report"
               className={`bg-white text-slate-900 shadow-2xl print:shadow-none mx-auto relative shrink-0 ${
-                pageSize === 'A5' ? 'w-[148mm] min-h-[210mm] p-5 text-[10px]' : 'w-[210mm] min-h-[297mm] p-6 sm:p-8 text-xs'
+                pageSize === 'A5' ? 'w-[148mm] p-4 text-[10px]' : 'w-[210mm] p-6 text-xs'
               } ${isBlackAndWhite ? 'grayscale contrast-125' : ''}`}
               style={{
                 fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
@@ -435,43 +435,31 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
                       {/* Professional Hospital Results Table */}
                       <table className="w-full text-left border-collapse text-xs mb-2">
                         <thead>
-                          <tr className="border-b border-slate-300 bg-slate-50/80" style={{ height: '26px' }}>
-                            <th className="w-[38%] text-left" style={{ verticalAlign: 'middle', height: '26px', padding: '0 12px' }}>
-                              <span style={{ display: 'block', height: '26px', lineHeight: '26px', fontSize: '9.5px', fontWeight: 700, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.05em' }}>
-                                Investigation / Parameter
-                              </span>
+                          <tr className="border-b-2 border-slate-300 bg-slate-50/90 text-slate-700">
+                            <th className="w-[36%] py-1.5 px-3 text-left text-[9.5px] font-bold uppercase tracking-wider">
+                              Investigation / Parameter
                             </th>
-                            <th className="w-[18%] text-center" style={{ verticalAlign: 'middle', height: '26px', padding: '0 8px', textAlign: 'center' }}>
-                              <span style={{ display: 'block', height: '26px', lineHeight: '26px', fontSize: '9.5px', fontWeight: 700, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.05em' }}>
-                                Observed Result
-                              </span>
+                            <th className="w-[18%] py-1.5 px-2 text-center text-[9.5px] font-bold uppercase tracking-wider">
+                              Observed Result
                             </th>
-                            <th className="w-[12%] text-center" style={{ verticalAlign: 'middle', height: '26px', padding: '0 8px', textAlign: 'center' }}>
-                              <span style={{ display: 'block', height: '26px', lineHeight: '26px', fontSize: '9.5px', fontWeight: 700, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.05em' }}>
-                                Status
-                              </span>
+                            <th className="w-[14%] py-1.5 px-2 text-center text-[9.5px] font-bold uppercase tracking-wider">
+                              Status
                             </th>
-                            <th className="w-[20%] text-center" style={{ verticalAlign: 'middle', height: '26px', padding: '0 8px', textAlign: 'center' }}>
-                              <span style={{ display: 'block', height: '26px', lineHeight: '26px', fontSize: '9.5px', fontWeight: 700, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.05em' }}>
-                                Reference Interval
-                              </span>
+                            <th className="w-[18%] py-1.5 px-2 text-center text-[9.5px] font-bold uppercase tracking-wider">
+                              Reference Interval
                             </th>
-                            <th className="w-[12%] text-center" style={{ verticalAlign: 'middle', height: '26px', padding: '0 8px', textAlign: 'center' }}>
-                              <span style={{ display: 'block', height: '26px', lineHeight: '26px', fontSize: '9.5px', fontWeight: 700, textTransform: 'uppercase', color: '#334155', letterSpacing: '0.05em' }}>
-                                Unit
-                              </span>
+                            <th className="w-[14%] py-1.5 px-2 text-center text-[9.5px] font-bold uppercase tracking-wider">
+                              Unit
                             </th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-150">
+                        <tbody className="divide-y divide-slate-200">
                           {filteredSections.map(section => (
                             <React.Fragment key={section.name}>
                               {section.name !== 'General' && (
-                                <tr className="bg-slate-50" style={{ height: '24px' }}>
-                                  <td colSpan={5} style={{ verticalAlign: 'middle', height: '24px', padding: '0 12px' }}>
-                                    <span style={{ display: 'block', height: '24px', lineHeight: '24px', fontSize: '9.5px', fontWeight: 800, textTransform: 'uppercase', color: '#1e293b', letterSpacing: '0.05em' }}>
-                                      • {section.name}
-                                    </span>
+                                <tr className="bg-slate-50">
+                                  <td colSpan={5} className="py-1 px-3 text-[9px] font-extrabold uppercase text-slate-700 tracking-wider">
+                                    • {section.name}
                                   </td>
                                 </tr>
                               )}
@@ -490,22 +478,23 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
                                 const isAbnormal = flag === 'abnormal';
 
                                 return (
-                                  <tr key={param.id} className="hover:bg-slate-50/40 transition-colors" style={{ height: '30px' }}>
+                                  <tr key={param.id} className="hover:bg-slate-50/40 transition-colors">
                                     
                                     {/* Parameter Name */}
-                                    <td className="w-[38%]" style={{ verticalAlign: 'middle', height: '30px', padding: '0 12px' }}>
-                                      <span style={{ display: 'block', height: '30px', lineHeight: '30px', fontSize: '11px', fontWeight: 500, color: '#0f172a' }}>
+                                    <td className="w-[36%] py-1.5 px-3 align-middle text-left">
+                                      <span style={{ display: 'inline-block', height: '20px', lineHeight: '20px', verticalAlign: 'middle', fontSize: '11px', fontWeight: 600, color: '#0f172a' }}>
                                         {param.name}
                                       </span>
                                     </td>
                                     
                                     {/* Result Value */}
-                                    <td className="w-[18%] text-center" style={{ verticalAlign: 'middle', height: '30px', padding: '0 8px', textAlign: 'center' }}>
+                                    <td className="w-[18%] py-1.5 px-2 align-middle text-center">
                                       <span
                                         style={{
-                                          display: 'block',
-                                          height: '30px',
-                                          lineHeight: '30px',
+                                          display: 'inline-block',
+                                          height: '20px',
+                                          lineHeight: '20px',
+                                          verticalAlign: 'middle',
                                           fontSize: '11.5px',
                                           fontWeight: isHigh || isLow || isAbnormal ? 900 : 700,
                                           color: isHigh ? '#be123c' : isLow ? '#0369a1' : isAbnormal ? '#7e22ce' : '#020617',
@@ -516,43 +505,54 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
                                       </span>
                                     </td>
 
-                                    {/* Status Badge (Mathematical Vector Precision via Inline SVG - 100% Centered in Canvas & PDF) */}
-                                    <td className="w-[12%] text-center" style={{ verticalAlign: 'middle', height: '30px', padding: '0 8px', textAlign: 'center' }}>
+                                    {/* Status Badge */}
+                                    <td className="w-[14%] py-1.5 px-2 align-middle text-center">
                                       {profile.showFlags && isHigh && (
-                                        <svg width="56" height="19" viewBox="0 0 56 19" style={{ display: 'block', margin: '0 auto' }}>
-                                          <rect x="0.5" y="0.5" width="55" height="18" rx="3" fill="#fff1f2" stroke="#fca5a5" strokeWidth="1" />
-                                          <text x="28" y="12.5" textAnchor="middle" fill="#9f1239" fontSize="8.5" fontWeight="bold" fontFamily="system-ui, -apple-system, sans-serif">HIGH ▲</text>
+                                        <svg width="58" height="20" viewBox="0 0 58 20" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                                          <rect x="1" y="1" width="56" height="18" rx="3.5" fill="#fff1f2" stroke="#fca5a5" strokeWidth="1" />
+                                          <text x="29" y="10.5" textAnchor="middle" dominantBaseline="central" fill="#be123c" fontSize="9" fontWeight="800" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="0.5">HIGH ▲</text>
                                         </svg>
                                       )}
                                       {profile.showFlags && isLow && (
-                                        <svg width="56" height="19" viewBox="0 0 56 19" style={{ display: 'block', margin: '0 auto' }}>
-                                          <rect x="0.5" y="0.5" width="55" height="18" rx="3" fill="#f0f9ff" stroke="#7dd3fc" strokeWidth="1" />
-                                          <text x="28" y="12.5" textAnchor="middle" fill="#0369a1" fontSize="8.5" fontWeight="bold" fontFamily="system-ui, -apple-system, sans-serif">LOW ▼</text>
+                                        <svg width="58" height="20" viewBox="0 0 58 20" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                                          <rect x="1" y="1" width="56" height="18" rx="3.5" fill="#f0f9ff" stroke="#7dd3fc" strokeWidth="1" />
+                                          <text x="29" y="10.5" textAnchor="middle" dominantBaseline="central" fill="#0369a1" fontSize="9" fontWeight="800" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="0.5">LOW ▼</text>
                                         </svg>
                                       )}
                                       {profile.showFlags && isAbnormal && (
-                                        <svg width="64" height="19" viewBox="0 0 64 19" style={{ display: 'block', margin: '0 auto' }}>
-                                          <rect x="0.5" y="0.5" width="63" height="18" rx="3" fill="#faf5ff" stroke="#d8b4fe" strokeWidth="1" />
-                                          <text x="32" y="12.5" textAnchor="middle" fill="#7e22ce" fontSize="8.5" fontWeight="bold" fontFamily="system-ui, -apple-system, sans-serif">ABNORMAL</text>
+                                        <svg width="68" height="20" viewBox="0 0 68 20" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                                          <rect x="1" y="1" width="66" height="18" rx="3.5" fill="#faf5ff" stroke="#d8b4fe" strokeWidth="1" />
+                                          <text x="34" y="10.5" textAnchor="middle" dominantBaseline="central" fill="#7e22ce" fontSize="8.5" fontWeight="800" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="0.5">ABNORMAL</text>
                                         </svg>
                                       )}
                                       {profile.showFlags && !isHigh && !isLow && !isAbnormal && (
-                                        <span style={{ display: 'block', height: '30px', lineHeight: '30px', fontSize: '9.5px', fontWeight: 500, color: '#94a3b8', textAlign: 'center' }}>
+                                        <span
+                                          style={{
+                                            display: 'inline-block',
+                                            height: '20px',
+                                            lineHeight: '20px',
+                                            fontSize: '9.5px',
+                                            fontWeight: 500,
+                                            color: '#94a3b8',
+                                            textAlign: 'center',
+                                            verticalAlign: 'middle'
+                                          }}
+                                        >
                                           Normal
                                         </span>
                                       )}
                                     </td>
 
                                     {/* Reference Range */}
-                                    <td className="w-[20%] text-center" style={{ verticalAlign: 'middle', height: '30px', padding: '0 8px', textAlign: 'center' }}>
-                                      <span style={{ display: 'block', height: '30px', lineHeight: '30px', fontSize: '10.5px', fontWeight: 500, color: '#334155', textAlign: 'center' }}>
+                                    <td className="w-[18%] py-1.5 px-2 align-middle text-center">
+                                      <span style={{ display: 'inline-block', height: '20px', lineHeight: '20px', verticalAlign: 'middle', fontSize: '10.5px', fontWeight: 500, color: '#475569' }}>
                                         {rangeText}
                                       </span>
                                     </td>
 
                                     {/* Unit */}
-                                    <td className="w-[12%] text-center" style={{ verticalAlign: 'middle', height: '30px', padding: '0 8px', textAlign: 'center' }}>
-                                      <span style={{ display: 'block', height: '30px', lineHeight: '30px', fontSize: '10.5px', fontFamily: 'monospace', color: '#475569', textAlign: 'center' }}>
+                                    <td className="w-[14%] py-1.5 px-2 align-middle text-center">
+                                      <span style={{ display: 'inline-block', height: '20px', lineHeight: '20px', verticalAlign: 'middle', fontSize: '10.5px', fontFamily: 'monospace', color: '#64748b' }}>
                                         {param.unit || '—'}
                                       </span>
                                     </td>
