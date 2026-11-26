@@ -59,13 +59,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed md:sticky top-0 md:top-16 z-50 md:z-20 h-screen md:h-[calc(100vh-4rem)] w-72 md:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between select-none print:hidden transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none ${
+        className={`fixed md:sticky top-0 md:top-16 z-50 md:z-20 h-screen md:h-[calc(100vh-4rem)] w-72 md:w-64 bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border-r border-slate-200/70 dark:border-slate-800/70 flex flex-col justify-between select-none print:hidden transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none ${
           isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0 md:hidden'
         }`}
       >
-        <div className="p-4 space-y-2 overflow-y-auto flex-1">
+        <div className="p-3.5 space-y-2 overflow-y-auto flex-1">
           {/* Mobile Drawer Header */}
-          <div className="flex md:hidden items-center justify-between pb-3 mb-2 border-b border-slate-100 dark:border-slate-800">
+          <div className="flex md:hidden items-center justify-between pb-3 mb-2 border-b border-slate-200/60 dark:border-slate-800/60">
             <div>
               <h2 className="font-bold text-sm text-slate-900 dark:text-white">
                 {profile.labName || 'Raza Lab'}
@@ -74,18 +74,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 btn-liquid-3d-icon"
               aria-label="Close menu"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="px-3 py-1.5 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-            Main Navigation
+          <div className="px-3 py-1 text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex items-center justify-between">
+            <span>Main Navigation</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
           </div>
 
-          <nav className="space-y-1">
+          <nav className="space-y-1.5">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = currentPage === item.id;
@@ -93,23 +94,29 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   key={item.id}
                   onClick={() => handleItemClick(item.id)}
-                  className={`w-full flex items-center justify-between px-3.5 py-3 md:py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  className={`nav-btn-liquid-3d ${
                     isActive
-                      ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-bold shadow-xs'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      ? 'nav-btn-liquid-3d-active'
+                      : 'nav-btn-liquid-3d-inactive'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}`} />
-                    <span>{item.label}</span>
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className={isActive ? 'nav-icon-orb-active' : 'nav-icon-orb-inactive'}>
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <span className="truncate">{item.label}</span>
                   </div>
                   {item.count !== undefined && item.count > 0 && (
-                    <span className="px-2 py-0.5 text-xs rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-bold">
+                    <span className={`px-2 py-0.5 text-xs rounded-full font-bold shadow-xs ${
+                      isActive 
+                        ? 'bg-white/25 text-white border border-white/40' 
+                        : 'bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800'
+                    }`}>
                       {item.count}
                     </span>
                   )}
                   {item.badge && !isActive && (
-                    <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-100/80 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-300/60 dark:border-emerald-700/60">
                       {item.badge}
                     </span>
                   )}
@@ -120,13 +127,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Laboratory Quick Info Box (Bottom) */}
-        <div className="p-4 border-t border-slate-100 dark:border-slate-800 space-y-2.5 bg-slate-50/60 dark:bg-slate-900/60">
-          <div className="rounded-xl p-3 bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-xs space-y-1.5">
+        <div className="p-3.5 border-t border-slate-200/60 dark:border-slate-800/60 space-y-2 bg-slate-50/40 dark:bg-slate-900/40">
+          <div className="rounded-xl p-3 glass-panel border border-white/60 dark:border-slate-700/60 shadow-xs space-y-1.5">
             <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-800 dark:text-slate-200">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>Pathologist on Duty</span>
             </div>
-            <p className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate">
+            <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
               {profile.doctorName}
             </p>
             <div className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 truncate">
@@ -138,7 +145,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span className="truncate">{profile.address}</span>
             </div>
           </div>
-          <div className="text-[10px] text-center text-slate-400">
+          <div className="text-[10px] text-center text-slate-400 font-medium">
             Raza Clinical Laboratory • LIS 2.0
           </div>
         </div>

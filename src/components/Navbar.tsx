@@ -33,7 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleSidebar
 }) => {
   return (
-    <header className="sticky top-0 z-30 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-xs print:hidden w-full max-w-full">
+    <header className="sticky top-0 z-30 bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl border-b border-white/60 dark:border-slate-800/80 shadow-xs print:hidden w-full max-w-full">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-2">
           
@@ -43,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={onToggleSidebar}
               aria-label="Toggle navigation menu"
-              className="p-2 -ml-1 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none transition-colors"
+              className="btn-liquid-3d-icon p-2 rounded-xl text-slate-700 dark:text-slate-200 focus:outline-none"
             >
               {isSidebarOpen ? (
                 <X className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
@@ -57,15 +57,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center gap-2.5 cursor-pointer min-w-0" 
               onClick={() => onNavigate('dashboard')}
             >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-emerald-500/20 flex-shrink-0">
-                <FlaskConical className="w-5 h-5 sm:w-6 sm:h-6" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 border border-white/40 flex-shrink-0">
+                <FlaskConical className="w-5 h-5 sm:w-6 sm:h-6 drop-shadow-xs" />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5 min-w-0">
-                  <span className="font-bold text-sm sm:text-base text-slate-900 dark:text-white tracking-tight truncate">
+                  <span className="font-black text-sm sm:text-base text-slate-900 dark:text-white tracking-tight truncate">
                     {profile.labName || 'Raza Lab'}
                   </span>
-                  <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+                  <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100/80 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300/50 dark:border-emerald-700/50">
                     <CheckCircle2 className="w-3 h-3 text-emerald-600" /> LIS 2.0
                   </span>
                 </div>
@@ -79,24 +79,24 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Right: Actions, Role & Theme Toggles */}
           <div className="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
             
-            {/* Quick New Report Button */}
+            {/* Quick New Report Button (3D Liquid Glass Emerald) */}
             <button
               onClick={() => onNavigate('new-report')}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-xs transition-all active:scale-95"
+              className="btn-liquid-3d-emerald inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-white font-bold text-xs sm:text-sm shadow-md"
             >
               <PlusCircle className="w-4 h-4 flex-shrink-0" />
               <span className="hidden sm:inline">New Report</span>
               <span className="sm:hidden text-xs">New</span>
             </button>
 
-            {/* Role Switcher (Hidden on small mobile, visible on tablet/desktop) */}
-            <div className="hidden lg:flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700 text-xs">
+            {/* Role Switcher (Glossmorphic Glass Pill) */}
+            <div className="glass-panel hidden lg:flex items-center gap-1.5 p-1 rounded-xl border border-white/60 dark:border-slate-700/60 text-xs shadow-2xs">
               <UserCheck className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 ml-1.5" />
               <span className="text-slate-500 dark:text-slate-400 font-medium">Role:</span>
               <select
                 value={currentRole}
                 onChange={(e) => onRoleChange(e.target.value)}
-                className="bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold rounded px-2 py-1 outline-none border-0 cursor-pointer shadow-xs text-xs"
+                className="bg-white/80 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 font-bold rounded-lg px-2 py-1 outline-none border border-slate-200/50 dark:border-slate-700/50 cursor-pointer shadow-xs text-xs"
               >
                 <option value="Pathologist (Dr. Ghulam)">Pathologist (Dr. Ghulam)</option>
                 <option value="Senior Lab Technician">Senior Lab Technician</option>
@@ -104,12 +104,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               </select>
             </div>
 
-            {/* Dark / Light Mode Switch (Touch friendly) */}
+            {/* Dark / Light Mode Switch (Liquid 3D Icon Button) */}
             <button
               onClick={onToggleTheme}
               title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
               aria-label="Toggle theme"
-              className="p-2 rounded-xl text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="btn-liquid-3d-icon p-2 rounded-xl text-slate-600 dark:text-slate-300"
             >
               {isDarkMode ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-slate-600" />}
             </button>
