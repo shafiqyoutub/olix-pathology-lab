@@ -76,11 +76,23 @@ export const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div className="space-y-6 pb-12 relative">
       
-      {/* Background Ambient Glow Orbs for genuine optical glass refraction */}
-      <div className="absolute -top-16 left-1/4 w-96 h-96 bg-emerald-400/25 dark:bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-64 right-6 w-96 h-96 bg-teal-400/20 dark:bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-[520px] left-10 w-80 h-80 bg-sky-400/20 dark:bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-10 right-1/3 w-80 h-80 bg-purple-400/15 dark:bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Background Ambient Glow Orbs with CSS radial gradient for zero-lag 60 FPS scrolling */}
+      <div 
+        className="absolute -top-16 left-1/4 w-96 h-96 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.18) 0%, rgba(16,185,129,0) 70%)' }}
+      />
+      <div 
+        className="absolute top-64 right-6 w-96 h-96 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(20,184,166,0.15) 0%, rgba(20,184,166,0) 70%)' }}
+      />
+      <div 
+        className="absolute top-[520px] left-10 w-80 h-80 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.14) 0%, rgba(14,165,233,0) 70%)' }}
+      />
+      <div 
+        className="absolute -bottom-10 right-1/3 w-80 h-80 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(168,85,247,0.12) 0%, rgba(168,85,247,0) 70%)' }}
+      />
 
       {/* Top Banner & Quick Search with Glossmorphism */}
       <div className="glass-panel-elevated relative overflow-hidden rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-white/50 dark:border-white/10">
@@ -262,7 +274,18 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/20 dark:divide-white/5">
-                {recentReports.length === 0 ? (
+                {loading ? (
+                  [1, 2, 3, 4].map((i) => (
+                    <tr key={i} className="animate-pulse">
+                      <td className="py-3 px-3"><div className="h-4 w-20 bg-slate-200/60 dark:bg-slate-700/60 rounded" /></td>
+                      <td className="py-3 px-3"><div className="h-4 w-28 bg-slate-200/60 dark:bg-slate-700/60 rounded mb-1" /><div className="h-3 w-16 bg-slate-200/40 dark:bg-slate-700/40 rounded" /></td>
+                      <td className="py-3 px-3"><div className="h-4 w-16 bg-slate-200/60 dark:bg-slate-700/60 rounded" /></td>
+                      <td className="py-3 px-3"><div className="h-4 w-24 bg-slate-200/60 dark:bg-slate-700/60 rounded" /></td>
+                      <td className="py-3 px-3"><div className="h-5 w-16 bg-slate-200/60 dark:bg-slate-700/60 rounded-full" /></td>
+                      <td className="py-3 px-3 text-right"><div className="h-7 w-16 ml-auto bg-slate-200/60 dark:bg-slate-700/60 rounded-lg" /></td>
+                    </tr>
+                  ))
+                ) : recentReports.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="py-8 text-center text-slate-400">
                       No reports generated yet. Click "Create New Report" to start.
@@ -328,7 +351,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
           {/* Mobile Card View (Glossy Cards - Zero horizontal scroll) */}
           <div className="block md:hidden space-y-3">
-            {recentReports.length === 0 ? (
+            {loading ? (
+              [1, 2, 3].map((i) => (
+                <div key={i} className="p-4 rounded-2xl border border-white/50 dark:border-white/10 bg-white/40 dark:bg-slate-800/40 animate-pulse space-y-2">
+                  <div className="h-4 w-24 bg-slate-200/60 dark:bg-slate-700/60 rounded" />
+                  <div className="h-5 w-36 bg-slate-200/60 dark:bg-slate-700/60 rounded" />
+                  <div className="h-4 w-48 bg-slate-200/40 dark:bg-slate-700/40 rounded" />
+                </div>
+              ))
+            ) : recentReports.length === 0 ? (
               <div className="py-6 text-center text-xs text-slate-400">
                 No reports generated yet. Click "Create New Report" to start.
               </div>
@@ -414,30 +445,42 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           <div className="space-y-2.5">
-            {recentPatients.map(patient => (
-              <div
-                key={patient.id}
-                className="glass-panel glass-card-interactive p-3.5 rounded-2xl border border-white/50 dark:border-white/10 hover:border-emerald-400/40 transition-all flex items-center justify-between gap-3 shadow-sm"
-              >
-                <div>
-                  <h4 className="font-bold text-xs text-slate-900 dark:text-white">
-                    {patient.name}
-                  </h4>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                    {patient.gender.toUpperCase()} • {formatAge(patient.ageYears, patient.ageMonths, patient.ageDays)}
-                  </p>
-                  <p className="text-[10px] text-slate-400 font-mono">
-                    {patient.id}
-                  </p>
+            {loading ? (
+              [1, 2, 3].map((i) => (
+                <div key={i} className="p-3.5 rounded-2xl border border-white/40 dark:border-white/10 bg-white/40 dark:bg-slate-800/40 animate-pulse flex items-center justify-between">
+                  <div className="space-y-1">
+                    <div className="h-4 w-28 bg-slate-200/60 dark:bg-slate-700/60 rounded" />
+                    <div className="h-3 w-20 bg-slate-200/40 dark:bg-slate-700/40 rounded" />
+                  </div>
+                  <div className="h-7 w-16 bg-slate-200/50 dark:bg-slate-700/50 rounded-xl" />
                 </div>
-                <button
-                  onClick={() => onNavigate('new-report', { selectedPatient: patient })}
-                  className="btn-liquid-3d-emerald px-3 py-1.5 rounded-xl font-bold text-xs shadow-xs whitespace-nowrap cursor-pointer"
+              ))
+            ) : (
+              recentPatients.map(patient => (
+                <div
+                  key={patient.id}
+                  className="glass-panel glass-card-interactive p-3.5 rounded-2xl border border-white/50 dark:border-white/10 hover:border-emerald-400/40 transition-all flex items-center justify-between gap-3 shadow-sm"
                 >
-                  New Test
-                </button>
-              </div>
-            ))}
+                  <div>
+                    <h4 className="font-bold text-xs text-slate-900 dark:text-white">
+                      {patient.name}
+                    </h4>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                      {patient.gender.toUpperCase()} • {formatAge(patient.ageYears, patient.ageMonths, patient.ageDays)}
+                    </p>
+                    <p className="text-[10px] text-slate-400 font-mono">
+                      {patient.id}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => onNavigate('new-report', { selectedPatient: patient })}
+                    className="btn-liquid-3d-emerald px-3 py-1.5 rounded-xl font-bold text-xs shadow-xs whitespace-nowrap cursor-pointer"
+                  >
+                    New Test
+                  </button>
+                </div>
+              ))
+            )}
           </div>
 
           <button

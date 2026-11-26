@@ -124,7 +124,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors">
+    <div className="min-h-screen w-full max-w-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans">
       
       {/* Top Navbar */}
       <Navbar
@@ -139,7 +139,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Body with Sidebar & Content */}
-      <div className="flex-1 w-full max-w-7xl mx-auto flex overflow-x-hidden">
+      <div className="flex-1 w-full max-w-7xl mx-auto flex">
         
         {/* Navigation Sidebar (Collapsible & Mobile Slide-over) */}
         <Sidebar
@@ -150,8 +150,8 @@ export const App: React.FC = () => {
           onClose={handleCloseSidebar}
         />
 
-        {/* Dynamic Page Container (No horizontal scrolling on mobile) */}
-        <main className="flex-1 p-3 sm:p-5 lg:p-8 min-w-0 w-full max-w-full overflow-x-hidden">
+        {/* Dynamic Page Container (No horizontal scrolling on mobile, smooth fade) */}
+        <main className="flex-1 p-3 sm:p-5 lg:p-8 min-w-0 w-full max-w-full animate-page-fade" key={currentPage}>
           {currentPage === 'dashboard' && (
             <Dashboard
               profile={profile}
