@@ -33,7 +33,11 @@
     "showMethodology": true,
     "logoUrl": "",
     "signatureUrl": "",
-    "stampUrl": ""
+    "stampUrl": "",
+    "technologistName": "Muhammad Raza Ul Hasnain",
+    "technologistDesignation": "Medical Lab Technologist",
+    "technologistQualification": "B.Sc. (MLT)",
+    "technologistSignatureUrl": ""
   },
   "categories": [
     {

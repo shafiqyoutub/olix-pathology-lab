@@ -16,7 +16,7 @@ import {
 import { Report, LabProfile, TestItem } from '../types';
 import { formatAge } from '../utils/calculations';
 import { exportReportToPdf, printDirectly } from '../utils/pdfGenerator';
-import { defaultDoctorSignatureSvg, defaultLabStampSvg, defaultLabLogoSvg } from '../utils/graphics';
+import { defaultDoctorSignatureSvg, defaultLabStampSvg, defaultLabLogoSvg, defaultTechnologistSignatureSvg } from '../utils/graphics';
 
 interface ReportPreviewModalProps {
   report: Report | null;
@@ -248,7 +248,7 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
                   {/* Left: Lab Logo & Clinical Title */}
                   <div className="flex items-center gap-3">
                     {profile.showLogo && (
-                      <div className="w-13 h-13 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0 flex items-center justify-center">
                         <img
                           src={profile.logoUrl || defaultLabLogoSvg}
                           alt="Laboratory Logo"
@@ -440,7 +440,7 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
                               Investigation / Parameter
                             </th>
                             <th className="w-[18%] py-1.5 px-2 text-center text-[9.5px] font-bold uppercase tracking-wider">
-                              Observed Result
+                              Result
                             </th>
                             <th className="w-[14%] py-1.5 px-2 text-center text-[9.5px] font-bold uppercase tracking-wider">
                               Status
@@ -608,16 +608,37 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
                   </div>
                 </div>
 
-                {/* Center: Official Stamp */}
-                {profile.showStamp && (
-                  <div className="w-20 h-20 sm:w-22 sm:h-22 flex items-center justify-center -mb-1 shrink-0">
-                    <img
-                      src={profile.stampUrl || defaultLabStampSvg}
-                      alt="Official Laboratory Stamp"
-                      className="w-full h-full object-contain pointer-events-none"
-                    />
+                {/* Center: Official Stamp & Medical Lab Technologist */}
+                <div className="flex items-center gap-3 shrink-0">
+                  {profile.showStamp && (
+                    <div className="w-20 h-20 sm:w-22 sm:h-22 flex items-center justify-center -mb-1 shrink-0">
+                      <img
+                        src={profile.stampUrl || defaultLabStampSvg}
+                        alt="Official Laboratory Stamp"
+                        className="w-full h-full object-contain pointer-events-none"
+                      />
+                    </div>
+                  )}
+
+                  {/* Medical Lab Technologist */}
+                  <div className="text-left min-w-[145px]">
+                    <div className="w-32 h-10 mb-0.5 flex items-end justify-start">
+                      <img
+                        src={profile.technologistSignatureUrl || defaultTechnologistSignatureSvg}
+                        alt="Technologist Signature"
+                        className="max-h-10 object-contain"
+                      />
+                    </div>
+                    <div className="border-t border-slate-800 pt-1">
+                      <div className="font-black text-[10.5px] text-slate-950 uppercase tracking-tight">
+                        {profile.technologistName || 'Muhammad Raza Ul Hasnain'}
+                      </div>
+                      <div className="text-[9px] font-bold text-teal-800 leading-tight">
+                        {(profile.technologistDesignation || 'Medical Lab Technologist').replace(/\s*\(MLT\)/i, '')}
+                      </div>
+                    </div>
                   </div>
-                )}
+                </div>
 
                 {/* Right: Pathologist Signature */}
                 <div className="text-right min-w-[185px]">
@@ -632,7 +653,6 @@ export const ReportPreviewModal: React.FC<ReportPreviewModalProps> = ({
                   )}
                   <div className="border-t border-slate-800 pt-1">
                     <div className="font-black text-[11px] text-slate-950 uppercase">{profile.doctorName}</div>
-                    <div className="text-[9.5px] font-bold text-teal-800 leading-tight">{profile.doctorQualification}</div>
                     <div className="text-[8.5px] text-slate-600 font-medium">{profile.doctorDesignation}</div>
                     <div className="text-[8px] text-slate-400 font-mono">{profile.doctorRegistration}</div>
                   </div>

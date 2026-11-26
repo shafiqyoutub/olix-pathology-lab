@@ -43,3 +43,11 @@ server/data/*.tmp
 
 # Legacy template files (250MB+)
 legacy-template/
+
+# Agent and temporary files
+.agent/
+.claude/
+skills-lock.json
+find_api.py
+*.py
+

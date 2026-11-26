@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { LabProfile, AuditLog } from '../types';
 import { api } from '../utils/api';
-import { defaultDoctorSignatureSvg, defaultLabStampSvg, defaultLabLogoSvg } from '../utils/graphics';
+import { defaultDoctorSignatureSvg, defaultLabStampSvg, defaultLabLogoSvg, defaultTechnologistSignatureSvg } from '../utils/graphics';
 
 interface SettingsProps {
   profile: LabProfile;
@@ -38,6 +38,7 @@ export const Settings: React.FC<SettingsProps> = ({
 
   const logoInputRef = useRef<HTMLInputElement>(null);
   const sigInputRef = useRef<HTMLInputElement>(null);
+  const techSigInputRef = useRef<HTMLInputElement>(null);
   const stampInputRef = useRef<HTMLInputElement>(null);
   const restoreFileRef = useRef<HTMLInputElement>(null);
 
@@ -66,7 +67,7 @@ export const Settings: React.FC<SettingsProps> = ({
   };
 
   // Convert uploaded image file to Base64
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, field: 'logoUrl' | 'signatureUrl' | 'stampUrl') => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, field: 'logoUrl' | 'signatureUrl' | 'stampUrl' | 'technologistSignatureUrl') => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -400,6 +401,55 @@ export const Settings: React.FC<SettingsProps> = ({
             </div>
           </div>
 
+          {/* Medical Lab Technologist Credentials */}
+          <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-emerald-800 dark:text-emerald-400 flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-2">
+              <ShieldCheck className="w-4 h-4" />
+              Medical Lab Technologist (Signatory)
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  Technologist Full Name
+                </label>
+                <input
+                  type="text"
+                  value={formProfile.technologistName || ''}
+                  onChange={(e) => setFormProfile({ ...formProfile, technologistName: e.target.value })}
+                  placeholder="Muhammad Raza Ul Hasnain"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  Official Designation
+                </label>
+                <input
+                  type="text"
+                  value={formProfile.technologistDesignation || ''}
+                  onChange={(e) => setFormProfile({ ...formProfile, technologistDesignation: e.target.value })}
+                  placeholder="Medical Lab Technologist (MLT)"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  Academic Qualifications
+                </label>
+                <input
+                  type="text"
+                  value={formProfile.technologistQualification || ''}
+                  onChange={(e) => setFormProfile({ ...formProfile, technologistQualification: e.target.value })}
+                  placeholder="B.Sc. (MLT)"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold"
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="flex justify-end pt-4 border-t border-slate-100 dark:border-slate-800">
             <button
               type="submit"
@@ -427,7 +477,7 @@ export const Settings: React.FC<SettingsProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* 1. Laboratory Logo */}
             <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 flex flex-col items-center text-center space-y-3">
@@ -562,6 +612,51 @@ export const Settings: React.FC<SettingsProps> = ({
                 )}
               </div>
               <p className="text-[10px] text-slate-400">Dr. Ghulam Muhammad's signature</p>
+            </div>
+
+            {/* 4. Technologist Signature */}
+            <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 flex flex-col items-center text-center space-y-3">
+              <span className="font-bold text-slate-800 dark:text-white uppercase tracking-wider text-xs">
+                Technologist Signature
+              </span>
+              
+              <div className="w-32 h-32 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-2 flex items-center justify-center overflow-hidden shadow-xs">
+                <img
+                  src={formProfile.technologistSignatureUrl || defaultTechnologistSignatureSvg}
+                  alt="Technologist Signature"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+
+              <input
+                ref={techSigInputRef}
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageUpload(e, 'technologistSignatureUrl')}
+                className="hidden"
+              />
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => techSigInputRef.current?.click()}
+                  className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center gap-1.5"
+                >
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>Upload Signature</span>
+                </button>
+                {formProfile.technologistSignatureUrl && (
+                  <button
+                    type="button"
+                    onClick={() => setFormProfile({ ...formProfile, technologistSignatureUrl: '' })}
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-red-500"
+                    title="Reset to default"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+              <p className="text-[10px] text-slate-400">Muhammad Raza Ul Hasnain's signature</p>
             </div>
 
           </div>

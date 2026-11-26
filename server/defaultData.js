@@ -33,7 +33,11 @@ export const defaultLabProfile = {
   showMethodology: true,
   logoUrl: "", // Will support uploaded base64 image or generated SVG
   signatureUrl: "", // Signature graphic
-  stampUrl: "" // Stamp graphic
+  stampUrl: "", // Stamp graphic
+  technologistName: "Muhammad Raza Ul Hasnain",
+  technologistDesignation: "Medical Lab Technologist",
+  technologistQualification: "B.Sc. (MLT)",
+  technologistSignatureUrl: ""
 };
 
 export const defaultCategories = [

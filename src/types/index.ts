@@ -137,6 +137,10 @@ export interface LabProfile {
   logoUrl?: string;
   signatureUrl?: string;
   stampUrl?: string;
+  technologistName?: string;
+  technologistDesignation?: string;
+  technologistQualification?: string;
+  technologistSignatureUrl?: string;
 }
 
 export interface AuditLog {
